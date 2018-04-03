@@ -12,14 +12,29 @@ and [android-efi](https://github.com/me176c-dev/android-efi), a simple bootloade
 ## Installation
 1. Download and unpack `esp.zip` from [the latest release](https://github.com/me176c-dev/me176c-boot/releases).
 2. Make sure you have [Fastboot installed](https://wiki.lineageos.org/adb_fastboot_guide.html).
-3. Boot the tablet into Fastboot mode: On the stock ROM, press Volume Down + Power, and release the Power button
+3. Boot the tablet into Fastboot mode: On the stock ROM, press `Volume Down` + `Power`, and release the `Power` button
    once the backlight turns on.
 4. Connect the tablet to your PC, and verify that it shows up in `fastboot devices`.
 5. Flash the new EFI system partition extracted from the downloaded ZIP: `fastboot flash ESP esp.img`
 
+## Usage
+By default, the bootloader will boot into the main Android system.
+You can recognize the bootloader by the green Android robot that is shown on boot.
+
+Press `Volume Down` while booting to show the boot menu. Navigate through the menu with the `Volume Down` key.
+Press `Volume Up` to select an option. The `Power` button is **not** working inside the boot menu.
+
+### Configuration
+You can access the configuration files from Recovery, go to `Mount` and select `EFI System Partiton (ESP)`.
+Then you can access the ESP using ADB at `/esp`.
+
+Here are some links with more information how to configure the bootloader:
+- [`systemd-boot` on ArchLinux Wiki](https://wiki.archlinux.org/index.php/Systemd-boot)
+- [android-efi README](https://github.com/me176c-dev/android-efi#readme)
+
 ### Troubleshooting
 In some cases booting may fail or you make a mistake during the installation. In this case, first power off
-the tablet by holding the Power button until it turns off.
+the tablet by holding the `Power` button until it turns off.
 
 #### Recovery
 Even with the bootloader entirely broken, you can still boot into Fastboot mode using the rescue mode ("DNX mode").
@@ -27,7 +42,7 @@ Even with the bootloader entirely broken, you can still boot into Fastboot mode 
 1. Download the [stock ROM (`UL-K013-WW-12.10.1.36-user.zip`)](http://dlcdnet.asus.com/pub/ASUS/EeePAD/ME176C/UL-K013-WW-12.10.1.36-user.zip)
 2. Extract `esp.zip` and `droidboot.img` from the downloaded ZIP.
 3. Extract `EFI/Intel/efilinux.efi` from `esp.zip`.
-4. Press Volume Up + Volume Down + Power until "Fastboot starting..." shows up on the display.
+4. Press `Volume Up` + `Volume Down` + `Power` until "Fastboot starting..." shows up on the display.
 5. Connect the tablet to your PC, and verify that it shows up in `fastboot devices`.
 6.
     ```
