@@ -1,0 +1,8 @@
+[submodule "systemd-boot"]
+	path = systemd-boot
+	url = https://github.com/me176c-dev/systemd-boot-me176c.git
+	branch = master
+[submodule "android-efi"]
+	path = android-efi
+	url = https://github.com/me176c-dev/android-efi.git
+	branch = master
