@@ -14,7 +14,7 @@ meson ../systemd-boot systemd-boot
 ninja -C systemd-boot
 
 # Build android-efi
-meson ../android-efi android-efi
+meson ../android-efi android-efi -Drsci=true
 ninja -C android-efi
 
 # Create new partition image
