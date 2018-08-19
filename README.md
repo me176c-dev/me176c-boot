@@ -54,3 +54,16 @@ Even with the bootloader entirely broken, you can still boot into Fastboot mode 
 1. `git clone --recursive https://github.com/me176c-dev/me176c-boot.git`
 2. `./build-esp.sh` (some commands require root, make sure you can use `sudo`)
 3. `esp.img` and `esp.zip` are in the `build` directory
+
+### Project setup
+This repository contains 3 separate components:
+
+- **bootstrap** (`EFI/BOOT/bootx64.efi`):
+  A simple EFI application that runs first and checks some ACPI tables to determine if the device was started due to charger insertion.
+  If so, it sets an EFI variable to instruct the main bootloader to boot into charger mode.
+
+- **systemd-boot** (`systemd-bootx64.efi`):
+  A submodule that points to the current version of the [systemd-boot](https://www.freedesktop.org/wiki/Software/systemd/systemd-boot/) fork.
+
+- **android-efi**: (`android.efi`):
+  The bootloader that boots into Android boot images.

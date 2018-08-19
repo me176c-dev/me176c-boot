@@ -9,12 +9,16 @@ rm -rf build
 mkdir build
 cd build
 
+# Build bootstrap
+meson ../bootstrap bootstrap
+ninja -C bootstrap
+
 # Build systemd-boot
 meson ../systemd-boot systemd-boot
 ninja -C systemd-boot
 
 # Build android-efi
-meson ../android-efi android-efi -Drsci=true
+meson ../android-efi android-efi
 ninja -C android-efi
 
 # Create new partition image
@@ -28,15 +32,18 @@ sudo mkfs.fat -F32 -i $PARTITION_ID -n "$PARTITION_LABEL" "$loop_device"
 mkdir esp
 sudo mount "$loop_device" esp
 
-# Bootloader (systemd-boot)
+# Initial bootloader (for charger detection)
 sudo mkdir -p esp/EFI/BOOT
-sudo cp systemd-boot/systemd-bootx64.efi esp/EFI/BOOT/bootx64.efi
+sudo cp bootstrap/bootstrap.efi esp/EFI/BOOT/bootx64.efi
 
-# Configuration
-sudo cp -r ../loader esp
+# Boot selection (systemd-boot)
+sudo cp systemd-boot/systemd-bootx64.efi esp
 
 # Android bootloader
 sudo cp android-efi/android.efi esp
+
+# Configuration
+sudo cp -r ../loader esp
 
 # Unmount and destroy loop device
 sudo umount "$loop_device"

@@ -1,0 +1,3 @@
+# SPDX-License-Identifier: BSD-2-Clause
+option('loader', type : 'string', value : '\\systemd-bootx64.efi',
+       description : 'The path to the main bootloader to load (must be escaped for a C string)')
