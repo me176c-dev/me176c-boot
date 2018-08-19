@@ -49,5 +49,11 @@ sudo cp -r ../loader esp
 sudo umount "$loop_device"
 sudo losetup -d "$loop_device"
 
+# Copy licenses
+mkdir licenses
+cp ../bootstrap/COPYING licenses/COPYING.bootstrap
+cp ../systemd-boot/LICENSE licenses/COPYING.systemd-boot
+cp ../android-efi/COPYING licenses/COPYING.android-efi
+
 # Create ZIP
-zip -9 esp.zip esp.img
+zip -9r esp.zip esp.img licenses
