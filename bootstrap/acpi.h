@@ -31,7 +31,8 @@ struct ACPI_TABLE_HEADER {
 
 #define ACPI_TABLE_SIGNATURE_SIZE (sizeof(((struct ACPI_TABLE_HEADER*)0)->signature))
 
-EFI_STATUS acpi_get_table(struct ACPI_TABLE_HEADER **table, CHAR8 signature[ACPI_TABLE_SIGNATURE_SIZE]);
+CHAR8 acpi_calculate_table_checksum(const struct ACPI_TABLE_HEADER *table);
+EFI_STATUS acpi_get_table(struct ACPI_TABLE_HEADER **table, const CHAR8 signature[ACPI_TABLE_SIGNATURE_SIZE]);
 
 #define _acpi_table_has_field(table, member) (((UINTN) &(member) + sizeof(member)) <= (table)->header.length)
 #define acpi_table_has_field(table, name) _acpi_table_has_field(table, ((typeof(table)) 0)->name)

@@ -16,18 +16,20 @@
 #include <efilib.h>
 
 struct RSDP_TABLE {
-    CHAR8   signature[8];       /* "RSD PTR " */
-    CHAR8   checksum;           /* RSDP Checksum (bytes 0-19) */
-    CHAR8   oem_id[6];          /* OEM ID String */
-    CHAR8   revision;           /* ACPI Revision (0=1.0,2=2.0) */
-    UINT32  rsdt_address;       /* 32-bit RSDT Pointer */
+    struct {
+        CHAR8   signature[8];       /* "RSD PTR " */
+        CHAR8   checksum;           /* RSDP Checksum (bytes 0-19) */
+        CHAR8   oem_id[6];          /* OEM ID String */
+        CHAR8   revision;           /* ACPI Revision (0=1.0,2=2.0) */
+        UINT32  rsdt_address;       /* 32-bit RSDT Pointer */
+    } v1;
     UINT32  length;             /* RSDP Length */
     UINT64  xsdt_address;       /* 64-bit XSDT Pointer */
     CHAR8   extended_checksum;  /* RSDP Checksum (full) */
     CHAR8   reserved[3];        /* Reserved */
 }  __attribute__((packed));
 
-#define RSDP_SIGNATURE_SIZE (sizeof(((struct RSDP_TABLE*) 0)->signature))
+#define RSDP_SIGNATURE_SIZE (sizeof(((struct RSDP_TABLE*) 0)->v1.signature))
 static const char RSDP_SIGNATURE[RSDP_SIGNATURE_SIZE] = "RSD PTR ";
 
 struct XSDT_TABLE {
@@ -37,15 +39,24 @@ struct XSDT_TABLE {
 
 static const char XSDT_SIGNATURE[ACPI_TABLE_SIGNATURE_SIZE] = "XSDT";
 
-static EFI_STATUS acpi_verify_checksum(struct ACPI_TABLE_HEADER *table) {
-    CHAR8 *data = (CHAR8*) table;
+static CHAR8 acpi_calculate_checksum(const CHAR8 *data, UINT32 len) {
     CHAR8 sum = 0;
-
-    for (UINT32 i = 0; i < table->length; ++i) {
+    for (UINT32 i = 0; i < len; ++i) {
         sum += data[i];
     }
+    return sum;
+}
 
-    return sum == 0 ? EFI_SUCCESS : EFI_CRC_ERROR;
+CHAR8 acpi_calculate_table_checksum(const struct ACPI_TABLE_HEADER *table) {
+    return acpi_calculate_checksum((const CHAR8*) table, table->length);
+}
+
+static inline EFI_STATUS acpi_verify_checksum(const CHAR8 *data, UINT32 len) {
+    return acpi_calculate_checksum(data, len) == 0 ? EFI_SUCCESS : EFI_CRC_ERROR;
+}
+
+static inline EFI_STATUS acpi_verify_table_checksum(const struct ACPI_TABLE_HEADER *table) {
+    return acpi_calculate_table_checksum(table) == 0 ? EFI_SUCCESS : EFI_CRC_ERROR;
 }
 
 static EFI_STATUS get_xsdt_table(struct XSDT_TABLE **xsdt) {
@@ -56,8 +67,21 @@ static EFI_STATUS get_xsdt_table(struct XSDT_TABLE **xsdt) {
         return ret;
     }
 
-    if (CompareMem(rsdp->signature, RSDP_SIGNATURE, sizeof(RSDP_SIGNATURE))) {
+    if (CompareMem(rsdp->v1.signature, RSDP_SIGNATURE, sizeof(RSDP_SIGNATURE))) {
         return EFI_COMPROMISED_DATA;
+    }
+    if (rsdp->v1.revision < 2) {
+        return EFI_UNSUPPORTED;
+    }
+
+    ret = acpi_verify_checksum((const CHAR8*) rsdp, sizeof(rsdp->v1));
+    if (ret) {
+        return ret;
+    }
+
+    ret = acpi_verify_checksum((const CHAR8*) rsdp, sizeof(*rsdp));
+    if (ret) {
+        return ret;
     }
 
     *xsdt = (struct XSDT_TABLE *) rsdp->xsdt_address;
@@ -65,7 +89,7 @@ static EFI_STATUS get_xsdt_table(struct XSDT_TABLE **xsdt) {
         return EFI_COMPROMISED_DATA;
     }
 
-    ret = acpi_verify_checksum(&(*xsdt)->header);
+    ret = acpi_verify_table_checksum(&(*xsdt)->header);
     if (ret) {
         return ret;
     }
@@ -73,7 +97,7 @@ static EFI_STATUS get_xsdt_table(struct XSDT_TABLE **xsdt) {
     return EFI_SUCCESS;
 }
 
-EFI_STATUS acpi_get_table(struct ACPI_TABLE_HEADER **table, CHAR8 signature[ACPI_TABLE_SIGNATURE_SIZE]) {
+EFI_STATUS acpi_get_table(struct ACPI_TABLE_HEADER **table, const CHAR8 signature[ACPI_TABLE_SIGNATURE_SIZE]) {
     struct XSDT_TABLE *xsdt;
     EFI_STATUS ret = get_xsdt_table(&xsdt);
     if (ret) {
@@ -85,7 +109,7 @@ EFI_STATUS acpi_get_table(struct ACPI_TABLE_HEADER **table, CHAR8 signature[ACPI
         struct ACPI_TABLE_HEADER *header = (struct ACPI_TABLE_HEADER*) xsdt->entry[i];
         if (!CompareMem(header->signature, signature, ACPI_TABLE_SIGNATURE_SIZE)) {
             *table = header;
-            return acpi_verify_checksum(header);
+            return acpi_verify_table_checksum(header);
         }
     }
 

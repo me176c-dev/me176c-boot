@@ -17,7 +17,7 @@
 
 #include <efilib.h>
 
-static CHAR8 RSCI_SIGNATURE[ACPI_TABLE_SIGNATURE_SIZE] = "RSCI";
+static const CHAR8 RSCI_SIGNATURE[ACPI_TABLE_SIGNATURE_SIZE] = "RSCI";
 
 struct RSCI_TABLE {
     struct ACPI_TABLE_HEADER header;
