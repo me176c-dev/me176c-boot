@@ -7,6 +7,7 @@
 #include <efilib.h>
 
 #include "rsci.h"
+#include "gnvs.h"
 
 #ifndef LOADER_PATH
 #define LOADER_PATH  L"\\systemd-bootx64.efi"
@@ -40,6 +41,12 @@ EFI_STATUS efi_main(EFI_HANDLE image, EFI_SYSTEM_TABLE *system_table) {
                 Print(L"Failed to set charger loader entry: %r\n", err);
             }
         }
+    }
+
+    // Install ACPI table with global NVS area address
+    err = acpi_gnvs_install();
+    if (err) {
+        Print(L"Failed to install ACPI GNVS table: %r\n", err);
     }
 
     EFI_DEVICE_PATH *next_image_path = FileDevicePath(loaded_image->DeviceHandle, LOADER_PATH);

@@ -3,8 +3,11 @@ Copyright (C) 2018 lambdadroid
 
 The ACPI/RSCI charger detection is based on code from
 kernelflinger (https://github.com/intel/kernelflinger):
-  Copyright (c) 2016, Intel Corportaion
-  All rights reserved.
+    Copyright (c) 2013, Intel Corporation
+
+Additional UEFI protocol headers (protocol/*.h) are taken from
+EDK II (https://github.com/tianocore/edk2):
+    Copyright (c) 2004 - 2018, Intel Corporation
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are

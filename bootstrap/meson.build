@@ -27,6 +27,7 @@ bootstrap_lib = shared_library('bootstrap',
     'main.c',
     'acpi.c',
     'rsci.c',
+    'gnvs.c',
 
     include_directories: [efi_include],
     c_args: [
