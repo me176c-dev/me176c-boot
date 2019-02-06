@@ -94,9 +94,7 @@ Even with the bootloader entirely broken, you can still boot into Fastboot mode 
 ### Project setup
 This repository contains 3 separate components:
 
-- **bootstrap** (`EFI/BOOT/bootx64.efi`):
-  A simple EFI application that runs first and checks some ACPI tables to determine if the device was started due to charger insertion.
-  If so, it sets an EFI variable to instruct the main bootloader to boot into charger mode.
+- **bootstrap** (`EFI/BOOT/bootx64.efi`): See [bootstrap](bootstrap/README.md).
 
 - **systemd-boot** (`systemd-bootx64.efi`):
   A submodule that points to the current version of the [systemd-boot](https://www.freedesktop.org/wiki/Software/systemd/systemd-boot/) fork.
