@@ -1,0 +1,19 @@
+dist: xenial
+language: c
+
+addons:
+  apt:
+    packages:
+      - ninja-build
+      - gnu-efi
+      - libpng16-dev
+
+before_install:
+  - pyenv shell 3.7
+  - pip3 install --user meson
+
+install: true
+script: ./build-esp.sh
+
+notifications:
+  email: false

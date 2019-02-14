@@ -1,4 +1,4 @@
-# me176c-boot
+# me176c-boot [![Build Status](https://travis-ci.com/me176c-dev/me176c-boot.svg?branch=master)](https://travis-ci.com/me176c-dev/me176c-boot)
 me176c-boot is a custom, unlocked bootloader for the ASUS MeMO Pad 7 (ME176C/X). It consists out of a
 [fork of systemd-boot](https://github.com/me176c-dev/systemd-boot-me176c), a simple UEFI boot manager
 and [android-efi](https://github.com/me176c-dev/android-efi), a simple bootloader for Android™ boot images.
