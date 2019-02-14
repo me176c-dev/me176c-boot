@@ -1,15 +1,11 @@
 // SPDX-License-Identifier: BSD-2-Clause
-/*
- * Copyright (C) 2018 lambdadroid
- */
+// Copyright (C) 2018 lambdadroid
 
 /*
  * Based on: (BSD-2-Clause)
  *   https://github.com/intel/kernelflinger/blob/f79f4b2f9f8760f191d48b1ff03ec15e75118a90/include/libkernelflinger/acpi.h
  *   https://github.com/intel/kernelflinger/blob/d8a2c52855a7d8965bd44901dc38bc375d6bcb05/libkernelflinger/acpi.c
- *
  * Copyright (c) 2013, Intel Corporation
- * All rights reserved.
  */
 
 #include "acpi.h"

@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: BSD-2-Clause
-#
 # Copyright (C) 2018 lambdadroid
-#
 
 project('bootstrap', 'c',
     license: 'GPL-2.0',

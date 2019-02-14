@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: BSD-2-Clause
-/*
- * Copyright (C) 2018 lambdadroid
- */
+// Copyright (C) 2019 lambdadroid
 
 #ifndef BOOTSTRAP_SSDT_GNVS_H
 #define BOOTSTRAP_SSDT_GNVS_H

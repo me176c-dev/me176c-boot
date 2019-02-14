@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: BSD-2-Clause
-/*
- * Copyright (C) 2018 lambdadroid
- */
+// Copyright (C) 2018 lambdadroid
 
 #include <efi.h>
 #include <efilib.h>

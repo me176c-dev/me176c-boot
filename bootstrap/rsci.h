@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: BSD-2-Clause
-/*
- * Copyright (C) 2018 lambdadroid
- */
+// Copyright (C) 2018 lambdadroid
 
 #ifndef BOOTSTRAP_RSCI_H
 #define BOOTSTRAP_RSCI_H
