@@ -2,7 +2,8 @@
 # Copyright (C) 2018 lambdadroid
 
 project('bootstrap', 'c',
-    license: 'GPL-2.0',
+    version: '0.3.0',
+    license: 'BSD-2-Clause',
     default_options: [
         'buildtype=debugoptimized',
         'c_std=gnu11',
