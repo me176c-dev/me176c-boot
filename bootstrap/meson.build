@@ -39,7 +39,7 @@ bootstrap_lib = shared_library('bootstrap',
         '-mno-red-zone',
         '-mno-mmx',
         '-DGNU_EFI_USE_MS_ABI',
-        '-DLOADER_PATH=L"' + get_option('loader') + '"'
+        '-DLOADER_PATH=L"' + '\\'.join(get_option('loader').split('/')) + '"'
     ],
     objects: [efi_crt],
     link_args: [
