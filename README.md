@@ -38,7 +38,7 @@ less heat being generated). Ideally, this would be fixed directly in the custom 
 is possible to configure the bootloader to use the stock boot image when booting into charging mode:
 
 1. Download the [stock ROM (`UL-K013-WW-12.10.1.36-user.zip`)](http://dlcdnet.asus.com/pub/ASUS/EeePAD/ME176C/UL-K013-WW-12.10.1.36-user.zip)
-   and [the updated charger boot configuration (`charger.conf`)](https://gist.github.com/lambdadroid/6de9d6ac316277c8d6966a0e7b5f954d/raw/charger.conf)
+   and [the updated charger boot configuration (`charger.conf`)](examples/stock-charger/charger.conf)
 2. Extract `boot.img` from the downloaded ZIP.
 3. Boot into Recovery, go to `Mount` and select `EFI System Partition (ESP)`.
 4. Connect the tablet to your PC, and verify that it shows up in `adb devices`.
