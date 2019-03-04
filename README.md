@@ -1,15 +1,16 @@
 # me176c-boot [![Build Status](https://travis-ci.com/me176c-dev/me176c-boot.svg?branch=master)](https://travis-ci.com/me176c-dev/me176c-boot)
-me176c-boot is a custom, unlocked bootloader for the ASUS MeMO Pad 7 (ME176C/X). It consists out of a
+me176c-boot is a custom, unlocked bootloader for the ASUS MeMO Pad 7 (ME176C(X)). It consists out of a
 [fork of systemd-boot](https://github.com/me176c-dev/systemd-boot-me176c), a simple UEFI boot manager
 and [android-efi](https://github.com/me176c-dev/android-efi), a simple bootloader for Android™ boot images.
 
 ## Features
 - Boot into Android, Recovery and Fastboot
 - Unlocked bootloader, can boot into custom ROMs
-- Completely open-source and custom built for ASUS MeMO Pad (ME176C/X)
+- Completely open-source and custom built for ASUS MeMO Pad (ME176C(X))
 - Flexible configuration to add further boot targets (e.g. Linux dual boot)
 
 ## Installation
+0. Make sure that you are running Android 5.0 (Lollipop).
 1. Download and unpack `esp.zip` from [the latest release](https://github.com/me176c-dev/me176c-boot/releases).
 2. Make sure you have [Fastboot installed](https://wiki.lineageos.org/adb_fastboot_guide.html).
 3. Boot the tablet into Fastboot mode: On the stock ROM, press `Volume Down` + `Power`, and release the `Power` button
