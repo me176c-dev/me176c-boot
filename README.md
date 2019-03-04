@@ -32,6 +32,7 @@ go to `Mount` and select `EFI System Partiton (ESP)`.
 Then you can access the ESP using ADB at `/esp`.
 
 Here are some links with more information how to configure the bootloader:
+
 - [`systemd-boot` on ArchLinux Wiki](https://wiki.archlinux.org/index.php/Systemd-boot)
 - [android-efi README](https://github.com/me176c-dev/android-efi#systemd-boot)
   (`android` boot type is supported in me176c-boot)
