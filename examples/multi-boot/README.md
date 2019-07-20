@@ -5,7 +5,7 @@ additional boot targets and making sure that the installations use separate
 partitions.
 
 You almost certainly need to
-[set up an additional ESP partition](/#setting-up-an-additional-esp-partition).
+[set up an additional ESP partition](/README.md#setting-up-an-additional-esp-partition).
 Otherwise there will be barely enough space for a single installation.
 
 ### Internal Storage
